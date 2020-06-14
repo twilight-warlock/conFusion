@@ -1,60 +1,55 @@
 import React from "react";
-import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  Breadcrumb,
+  BreadcrumbItem,
+} from "reactstrap";
+import { Link } from "react-router-dom";
 
 function RenderDishInfo({ dish }) {
-  if (dish != null) {
-    return (
-      <div className="col-12 col-md-5 m-1">
-        <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  } else {
-    return <div></div>;
-  }
+  return (
+    <div className="col-12 col-md-5 m-1">
+      <Card>
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </div>
+  );
 }
 
-function RenderComments({ dish }) {
-  if (dish != null) {
-    const commentsGen = dish.comments.map((comment) => {
-      return (
-        <div key={comment.id}>
-          <li>{comment.comment}</li>
-          <br />
-          <li>
-            -- {comment.author} ,{" "}
-            {new Intl.DateTimeFormat("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "2-digit",
-            }).format(new Date(comment.date))}
-          </li>
-          <br />
-        </div>
-      );
-    });
-
+function RenderComments({ comments }) {
+  if (comments != null) {
     return (
       <div className="col-12 col-md-5 m-1">
-        <Card>
-          <CardBody>
-            <CardTitle>
-              <h4>Comments</h4>
-            </CardTitle>
-            <CardText>
-              <ul className="list-unstyled">{commentsGen}</ul>
-            </CardText>
-          </CardBody>
-        </Card>
+        <h4>Comments</h4>
+        <ul className="list-unstyled">
+          {comments.map((comment) => {
+            return (
+              <div key={comment.id}>
+                <li>{comment.comment}</li>
+                <br />
+                <li>
+                  -- {comment.author} ,{" "}
+                  {new Intl.DateTimeFormat("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                  }).format(new Date(comment.date))}
+                </li>
+                <br />
+              </div>
+            );
+          })}
+        </ul>
       </div>
     );
-  } else {
-    return <div></div>;
   }
 }
 
@@ -62,9 +57,21 @@ const DishdetailComponent = (props) => {
   return (
     <div className="container">
       <div className="row">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/menu">Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+        </Breadcrumb>
+        <div className="col-12">
+          <h3>{props.dish.name}</h3>
+          <hr />
+        </div>
+      </div>
+      <div className="row">
         {console.log(props.dish)}
         <RenderDishInfo dish={props.dish} />
-        <RenderComments dish={props.dish} />
+        <RenderComments comments={props.comments} />
       </div>
     </div>
   );
