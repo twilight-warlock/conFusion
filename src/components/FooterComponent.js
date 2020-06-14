@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function FooterComponent() {
   return (
@@ -11,18 +12,18 @@ function FooterComponent() {
               <ul className="list-unstyled">
                 <li>
                   {/* eslint-disable-next-line */}
-                  <a href="#">Home</a>
+                  <Link to="/home">Home</Link>
                 </li>
                 <li>
                   {/* eslint-disable-next-line */}
-                  <a href="#">About</a>
+                  <Link to="/aboutus">About</Link>
                 </li>
                 <li>
                   {/* eslint-disable-next-line */}
-                  <a href="#">Menu</a>
+                  <Link to="/menu">Menu</Link>
                 </li>
                 <li>
-                  <a href="contactus.html">Contact</a>
+                  <Link to="/contactus">Contact</Link>
                 </li>
               </ul>
             </div>
