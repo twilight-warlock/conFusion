@@ -7,7 +7,7 @@ import Contact from "./ContactComponentt";
 import About from "./AboutComponent";
 import DishdetailComponent from "./DishdetailComponent";
 import {
-  addComment,
+  postComment,
   fetchDishes,
   fetchComments,
   fetchLeaders,
@@ -27,8 +27,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addComment: (dishId, rating, author, comment) =>
-    dispatch(addComment(dishId, rating, author, comment)),
+  postComment: (dishId, rating, author, comment) =>
+    dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () => {
     dispatch(fetchDishes());
   },
@@ -89,7 +89,7 @@ class Main extends Component {
             (comment) => comment.dishId === parseInt(match.params.dishId, 10)
           )}
           commentsErrMess={this.props.comments.errMess}
-          addComment={this.props.addComment}
+          postComment={this.props.postComment}
         />
       );
     };
